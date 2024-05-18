@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emissão de Certificado: A Origem da Tributação Pública</title>
+    <style>
+        body {
+        color: black;
+        background-color: white;
+        font-family: Geneva;
+        align-items: center;
+        }
+        ul {
+        display: flex;
+        justify-content: space-between;
+        list-style-type: nome;
+        align-items: center;
+        padding: 25px;
+        }
+        a {
+        font-family: Geneva;
+        font-size: 20px;
+        color: black;
+        text-decoration: nome;
+        }
+        a:active { 
+        color: red;
+        }
+        nav a:hover {
+        color: blue;
+        }    
+        header img.header-image {
+        width: 300px;
+        height: 200px;
+        align-content: center;
+        }
+        body img.body-image {
+        width: 150px;
+        height: 70px;
+        display: block;
+        margin: auto;
+        }
+        button {
+        background-color: #0074d9;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        cursor: pointer;
+        }
+        .search-box {
+        width: 300px;
+        }
+        .section {
+        color: black;
+        font-family: Geneva;
+        font-size: 15px; 
+        }
+        .center {
+        text-align: center;
+        }
+        h2 {
+        color: black;
+        font-family: Geneva;
+        text-align: center;
+        font-size: 20px; 
+        }
+        p{
+        font-family: Geneva;
+        color: black;
+        text-align: center;
+        font-size: 15px;     
+        }
+        footer{
+        font-family: Geneva;
+        color: black;
+        text-align: center;
+        font-size: 15px;     
+        }
+        @media print { 
+         #noprint { display:none; } 
+         body { background: #fff; }
+         }
+         #nome {
+        text-align: center;
+        font-weight: bold;
+        font-style: italic;
+        }
+        input[type="text"] {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        }
+        input[type="date"] {
+        background-color: transparent;
+        color: black;
+        text-align: center;
+        font-weight: bold;
+        font-style: italic;
+        }
+        input[type="date"] {
+        border: none;
+        }
+        </style>
+        </head>
+        <header>   
+            <div class="center">
+            <nav>
+        <ul>
+            <a href="index.html">Portal Zanoni Capacitação Humana, Ciência & Tecnologia</a>
+            <a href="areadoaluno.html">Área do Aluno</a>
+        </ul>
+        </nav>  
+        <img class="header-image" src="./img/logo.3.jpg" alt="Logo Portal Zanoni Capacitação Humana, Ciência & Tecnologia">
+        <h2>C E R T I F I C A D O</h2>
+        </div>
+        </header>
+        <body>
+        <center>
+        <p>O Portal Zanoni Capacitação Humana, Ciência & Tecnologia certifica que o aluno:<p>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" style="outline: none;"/>
+        <p>portador do CPF:</p>
+        <p style="text-align: center;">
+        <input type="text" id="cpf" maxlength="14" placeholder="Digite seu cpf" oninput="javascript: if (this.value.length == 3 || this.value.length == 7) this.value += '.'; if (this.value.length == 11) this.value += '-';" style="font-weight: bold; font-style: italic; text-align: center;"/>
+        <p>Concluiu o curso A Origem da Tributação Pública com duração de 20 horas tendo obitido aproveitamento de 100%:<p>
+        <p>Para os devidos fins de autenticação deste certificado assina o documento digitalmente a coordenadora pedagógica certificando a conclusão na respectiva data:</p>
+        <input type="date" id="data" name="data" value="2023-12-21"><br>
+        <img class="body-image" src="./img/cordassinatura.jpg" alt="Assinatura Coordenadora">   
+        <p>Valquiria Ap. S. Z.</p>
+        <p>Coordenadora Pedgagógica</p>
+        <footer>
+        <p>O número da emissão de seu certificado é:</p><!-- Inicio codigo Contador -->
+        <div align="center"><a href="https://www.rastreamentocorreios.net.br/"><img src="https://contador-gratis.com/contadores-de-visitas/211223083052607.gif"></a><div><a href="https://www.contador-gratis.com/"></a></div></div>
+        <!-- Fim do codigo Contador -->
+        </footer>    
+        <br>                                                                                  
+        <button onclick="print()">Imprimir Certificado</button>
+        </center>
+        </body>
+        <script>
+            var dataAtual = new Date().toISOString().slice(0,10);
+            document.getElementById('data').value = dataAtual;
+        </script>
+        </html>
