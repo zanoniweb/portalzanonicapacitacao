@@ -1,542 +1,868 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo de Cursos</title>
-       <style>
-       body {
-        color: black;
-        background-color: white;
-        font-family: Geneva;
-        align-items: center;
+    <title>Catálogo de Livros - Portal Zanoni</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --primary-hover: #1565c0;
+            --secondary-color: #d32f2f;
+            --text-color: #212121;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        ul {
-        display: flex;
-        justify-content: space-between;
-        list-style-type: nome;
-        align-items: center;
-        padding: 25px;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        a {
-        font-family: Geneva;
-        font-size: 25px;
-        color: blue;
-        text-decoration: nome;
+
+        body {
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        a:active { 
-        color: red;
+
+        /* Header & Navegação */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
         nav a:hover {
-        color: blue;
-        }    
-        header img {
-        width: 300px;
-        height: 200px;
-        align-content: center;
-        }
-        body img.body-image {
-        width: 80px;
-        height: 40px;
-        align-content: center;
-        }
-        button {
-        margin: 5px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: black;
-        color: blue;
-        cursor: pointer;
+            color: var(--secondary-color);
         }
 
-        button:hover {
-        background-color: red;
+        .logo-header {
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 15px;
         }
-        .search-box {
-        width: 300px;
-        }
-        .section {
-        color: blue;
-        font-family: Geneva;
-        font-size: 30px; 
-        }
-        .center {
-        text-align: center;
-        }
+
         h1 {
-        color: black;
-        font-family: Geneva;
-        text-align: justify;
-        font-size: 45px; 
+            color: var(--text-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
-        p{
-        font-family: Geneva;
-        color: black;
-        text-align: center;
-        font-size: 25px;     
+
+        /* Container Principal */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
         }
-        footer{
-        font-family: Geneva;
-        color: black;
-        text-align: center;
-        font-size: 20px;     
+
+        /* Área de Busca */
+        .search-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
         }
-        </style>
-        </head>
-        <header>   
-            <div class="center">
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .search-form label {
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+        }
+
+        .body-image {
+            position: absolute;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Grade de Livros */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .book-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .book-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .book-meta p {
+            margin-bottom: 4px;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            padding: 40px;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            height: 30px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
             <nav>
-        <ul>
-            <a href="index.html">Portal Zanoni Capacitação Humana, Ciência & Tecnologia</a>
-            <a href="areadoaluno.html">Área do Aluno</a>
-            <a href="catalogodecursos.html">Catálogo de Cursos</a>
-        </ul>
-        </nav>  
-        <img src="./img/logo.3.jpg"></img>
-        <h1>Catálogo de Livros</h1>
+                <ul>
+                    <li><a href="index.html">Portal Zanoni Capacitação Humana, Ciência & Tecnologia</a></li>
+                    <li><a href="areadoaluno.html">Área do Aluno</a></li>
+                    <li><a href="catalogodecursos.html">Catálogo de Cursos</a></li>
+                </ul>
+            </nav>
+            <img src="./img/logo.3.jpg" alt="Logo Portal Zanoni" class="logo-header">
+            <h1>Catálogo de Livros</h1>
         </div>
-        </header>
-        <body>
-        
-            <justify>
-            <form method="POST">
+    </header>
 
-                <label for="query">Digite sua consulta de pesquisa:</label><br>
-                <input type="text" id="query" name="query"><br>
-                <button><input type="reset" value="Limpar"></button>
-                <button><input type="submit" value="Pesquisar"></button>
-                
-                <img class="body-image" src="./img/pesquisa.png " alt="Logo do campo pesquisa.">
+    <main>
+        <section class="search-section">
+            <form id="searchForm" class="search-form">
+                <label for="query">Digite sua consulta de pesquisa:</label>
+                <div class="input-group">
+                    <input type="text" id="query" class="search-box" placeholder="Digite o título, autor ou assunto..." name="query">
+                    <img class="body-image" src="./img/pesquisa.png" alt="Ícone de pesquisa">
+                </div>
+                <div class="btn-group">
+                    <button type="reset" id="resetBtn" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </form>
+        </section>
 
-              </form>
-            </justify>
-
-              <br>
-
-            <a href="catalogodelivros.html"><button>Carregar Para Nova Pesquisa</button></a>
-<div id="resposta">
-        <br>
-
-<section>
-                 
-  <article>
-    <h2>A INFLUÊNCIA ALEMÃ NA FILATELIA BRASILEIRA: UMA ANÁLISE HISTÓRICA ANTES E DEPOIS DA SEGUNDA GUERRA MUNDIAL.</h2>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/fjey/" download="A INFLUÊNCIA ALEMÃ NA FILATELIA BRASILEIRA: UMA ANÁLISE HISTÓRICA ANTES E DEPOIS DA SEGUNDA GUERRA MUNDIAL.">ARTIGO</a></button>
-    </article>
-
-  <article>
-    <h3>A ORIGEM DA EDUCAÇÃO.</h3>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qsbi/" download="A ORIGEM DA EDUCAÇÃO">APOSTILA</a></button>
-    </article>
-
-  <article>
-    <h4> A ORIGEM DA TRIBUTAÇÃO PÚBLICA.</h4>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/uqyg/" download="A ORIGEM DA TRIBUTAÇÃO PÚBLICA">APOSTILA</a></button>
-    </article>
-
-  <article>
-    <h5>A VIOLÊNCIA CONTRA EDUCADORES BRASILEIROS.</h5>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/tjka/" download="A VIOLÊNCIA CONTRA EDUCADORES BRASILEIROS">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h6>AÇÕES POLICIAIS EM ÁREAS OCUPADAS POR CRIMINOSOS</h6><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/nced/" download="AÇÕES POLICIAIS EM ÁREAS OCUPADAS POR CRIMINOSOS">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h7>ANÁLISE HISTÓRICA E TÉCNICA REFERENTE AO IPTU.</h7><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qsmt/" download="ANÁLISE HISTÓRICA E TÉCNICA REFERENTE AO IPTU">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h8>AS GRANDES FALHAS EM AÇÕES POLICIAS: OS ERROS E OS ACERTOS.</h8><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/whjp/" download="As grandes falhas em ações policiais: os erros e os acertos.">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h9>AS VARIAÇÕES DAS MOEDAS DE COBRE DO BRASIL: COLÔNIA, REINO UNIDO E PERÍODOS IMPERIAIS.</h9><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/enbq/" download="AS VARIAÇÕES DAS MOEDAS DE COBRE DO BRASIL: COLÔNIA, REINO UNIDO E PERÍODOS IMPERIAIS.">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h10>CATALOGO DAS MOEDAS COMUNS DO PLANO REAL</h10><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/zxjk/" download="CATALOGO DAS MOEDAS COMUNS DO PLANO REAL">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h11>CATALOGO DAS MOEDAS COMUNS DO PLANO REAL</h11><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2025</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/btwo/" download="CATALOGO DAS MOEDAS COMUNS DO PLANO REAL">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h12>CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, MATRIZES DE CUNHOS TRIPLICADOS, MATRIZES DE CUNHOS QUADRUPLICADOS E CUNHOS DUPLOS NAS MOEDAS CIRCULANTES DO PLANO REAL</h12><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qtft/" download="CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, MATRIZES DE CUNHOS TRIPLICADOS, MATRIZES DE CUNHOS QUADRUPLICADOS E CUNHOS DUPLOS NAS MOEDAS CIRCULANTES DO PLANO REAL">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h13>CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, MATRIZES DE CUNHOS TRIPLICADOS, MATRIZES DE CUNHOS QUADRUPLICADOS E CUNHOS DUPLOS NAS MOEDAS CIRCULANTES DO PLANO REAL</h13><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2025</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/iezr/" download="CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, MATRIZES DE CUNHOS TRIPLICADOS, MATRIZES DE CUNHOS QUADRUPLICADOS E CUNHOS DUPLOS NAS MOEDAS CIRCULANTES DO PLANO REAL">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h14>COMO ADMINISTRAR CONFLITOS EM CENTRAIS DE IPTU.</h14><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/leqb/" download="COMO ADMINISTRAR CONFLITOS EM CENTRAIS DE IPTU">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h15>COMO AUMENTAR A ARREDAÇÃO MUNICIPAL.</h15><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/ifru/" download="Como aumentar a arrecadação municipal">APOSTILA</a></button>
-  </article>
-<br>
-  <article>
-    <h16>COMO COLECIONAR FICHAS: UMA ABORDAGEM HISTÓRICA E CONTEPORÂNEA.</h16><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/ylra/" download="COMO COLECIONAR FICHAS: UMA ABORDAGEM HISTÓRICA E CONTEPORÂNEA. ">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h17>COMO PLANEJAR E EXECUTAR O TURISMO CULTURAL.</h17><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qbiw/" download="Como planejar e executar o turismo cultural.">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h18>ESCRAVIDÃO AFRICANA NO BRASIL.</h18><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/deqd/" download="ESCRAVIDÃO AFRICANA NO BRASIL">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h19>ESTUDO NUMISMÁTICO DAS ANOMALIAS ENCONTRADAS NAS MOEDAS CIRCULANTES DO PLANO REAL.</h19><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/rizy/" download="ESTUDO NUMISMÁTICO DAS ANOMALIAS ENCONTRADAS NAS MOEDAS CIRCULANTES DO PLANO REAL.">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h20>GESTÃO ESCOLAR PARA DIRETORES (RAS) DE ESCOLAS MUNICIPAIS PÚBLICAS.</h20><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qcgb/" download="GESTÃO ESCOLAR PARA DIRETORES (RAS) DE ESCOLAS MUNICIPAIS PÚBLICAS">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h21>INTRODUÇÃO À AGRICULTURA DE PRECISÃO.</h21><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/odcz/" download="INTRODUÇÃO À AGRICULTURA DE PRECISÃO">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h22>INTRODUÇÃO A UTILIZAÇÃO CORRETA DE EPI.</h22><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/drfq/" download="INTRODUÇÃO A UTILIZAÇÃO CORRETA DE EPI">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h23>MEMÓRIAS PÓSTUMAS DO SR. ANTONIO CELSO ZANONI: HISTÓRIAS FAMILIMARES, PESSOAIS E PROFISSIONAIS QUE ENVOLVEM A HISTÓRIA DO S. C. P. C. DA ACIL.</h23><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/jbpr/" download="Memórias póstumas do Sr. Antônio Celso Zanoni: histórias familiares, pessoais e profissionais que envolvem a história do S. C. P. C. da ACIL.">EBOOK</a></button>
-  </article>
-<br>        
-  <article>
-    <h24>NO ANO EM QUE O PLANO REAL COMPLETA 30 ANOS: A MOEDA DE R$ 0,50 ANO 1994 QUE É O EXEMPLAR MAIS FALSIFICADO DO PALNO REAL AINDA ESTÁ EM CRICULAÇÃO.</h24><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/gzsv/" download="No ano em que o Plano Real completa 30 anos: a moeda de R$ 0,50 ano 1994 que é o exemplar mais falsificado do Plano Real ainda está em circulação.">ARTIGO</a></button>
-  </article>
-<br>        
-  <article>
-    <h25>NOÇÕES BÁSICAS DE ADMINISTRAÇÃO DE BIBLIOTECA INFANTIL PÚBLICA.</h25><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/blox/" download="NOÇÕES BÁSICAS DE ADMINISTRAÇÃO DE BIBLIOTECA INFANTIL PÚBLICA">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h26>NOÇÕES BÁSICAS DE MONITORAMENTO DE METAIS PESADOS: O CHUMBO (Pb).</h26><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/jfcy/" download="NOÇÕES BÁSICAS DE MONITORAMENTO DE METAIS PESADOS: O CHUMBO (Pb).">APOSTILA</a></button>
-  </article>
-<br>        
-  <article>
-    <h27>O EMPREGO DA INTERNET COMO FERRAMENTA NO PROCESSO DE ENSINO-APRENDIZAGEM DA DISCIPLINA DE HISTÓRIA.</h27><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/lcte/" download="O EMPREGO DA INTERNET COMO FERRAMENTA NO PROCESSO DE ENSINO-APRENDIZAGEM DA DISCIPLINA DE HISTÓRIA.">APOSTILA</a></button>
- </article>
-<br>        
- <article>
-    <h28>O ENSINO RELIGIOSO EM SALAS DE AULA MULTICULTURAIS.</h28><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/zyod/" download="O ENSINO RELIGIOSO EM SALSAS DE AULA MULTICULTURAIS.">APOSTILA</a></button>
- </article>
-<br>        
- <article>
-    <h29>OS GRANDES FATORES QUE LEVARAM A ALEMANHA A PERDER A SEGUNDA GUERRA MUNDIAL</h29><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/zkgp/" download="OS GRANDES FATORES QUE LEVARAM A ALEMANHA A PERDER A SEGUNDA GUERRA MUNDIAL">APOSTILA</a></button>
- </article>
-<br>        
- <article>
-    <h30>OS GRANDES PROBLEMAS DA EDUCAÇÃO BRASILEIRA: UMA ANÁLISE CONTEMPORÂNEA</h30><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/tcfk/" download="OS GRANDES PROBLEMAS DA EDUCAÇÃO BRASILEIRA: UMA ANÁLISE CONTEMPORÂNEA">APOSTILA</a></button>
- </article>
-<br>        
- <article>
-   <h31>OS POVOS INDÍGENAS DO BRASIL.</h31><br>
-   <alt>AUTOR: JULIANO ZANONI</alt><br>
-   <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-   <alt>EDIÇÃO: 1ª.</alt><br>
-   <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-   <button><a href="https://online.fliphtml5.com/lusnq/wyzk/" download="OS POVOS INDÍGENAS DO BRASIL.">APOSTILA</a></button>
- </article>
-<br>        
-  <article>
-    <h32>RECURSOS HUMANOS NO SERVIÇO PÚBLICO MUNICIPAL: RECRUTAMENTO, SELEÇÃO E ADMISSÃO.</h32><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/oszx/" download="RECURSOS HUMANOS NO SERVIÇO PÚBLICO MUNICIPAL: RECRUTAMENTO, SELEÇÃO E ADMISSÃO.">APOSTILA</a></button>
- </article>
-<br>        
- <article>
-    <h33>REVOLTAS IMPERIAIS: IMPÉRIO DE D. PEDRO II.</h33><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/evec/" download="REVOLTAS IMPERIAIS: IMPÉRIO DE D. PEDRO II.">APOSTILA</a></button>
- </article>
- <br>        
- <article>
-    <h34>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE MOEDAS DE COBRE DO BRASIL IMPERIAL.</h34><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2025</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/ntnd/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE MOEDAS DE COBRE DO BRASIL IMPERIAL.">EBOOK</a></button>
- </article>
- <br>        
- <article>
-    <h35>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,05 COM DETALHES EM DUPLICIDADE.</h35><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/ofeq/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,05 COM DETALHES EM DUPLICIDADE.">EBOOK</a></button>
- </article>
-<br>        
- <article>
-    <h36>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,05 COM EXCESSO DE METAL.</h36><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/rwwh" download="Versão ilustrada da coleção numismática Zanoni com os exemplares de moedas de R$ 0,05 com excesso de metal.">EBOOK</a></button>
- </article>
- <br>        
- <article>
-    <h37>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,05 COM EXCESSO DE METAL.</h37><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2025</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/iluf/" download="Versão ilustrada da coleção numismática Zanoni com os exemplares de moedas de R$ 0,05 com excesso de metal.">EBOOK</a></button>
- </article>
-<br>
-<article>
-    <h38>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,10 DA 1ª FAMÍLIA DO PLANO REAL COM DETALHES EM DUPLICIDADE</h38><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/uhtw/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,10 DA 1ª FAMÍLIA DO PLANO REAL COM DETALHES EM DUPLICIDADE">EBOOK</a></button>
-</article>
-<br>        
- <article>
-    <h39>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,10 DA 2ª FAMÍLIA DO PLANO REAL COM DETALHES EM DUPLICIDADE</h39><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/dmqv/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,10 DA 2ª FAMÍLIA DO PLANO REAL COM DETALHES EM DUPLICIDADE">EBOOK</a></button>
- </article>
-<br>        
- <article>
-    <h40>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,50 COM DETALHES EM DUPLICIDADE.</h40><br> 
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/qvbl/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 0,50 COM DETALHES EM DUPLICIDADE.">EBOOK</a></button>
- </article>  
-<br>        
- <article>
-    <h41>VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 1,00 COM DETALHES EM DUPLICIDADE.</h41><br>
-    <alt>AUTOR: JULIANO ZANONI</alt><br>
-    <alt>EDITORA: PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TENCOLOGIA.</alt><br>
-    <alt>EDIÇÃO: 1ª.</alt><br>
-    <alt>ANO DA PUBLICAÇÃO: 2024</alt><br>
-    <button><a href="https://online.fliphtml5.com/lusnq/widy/" download="VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI COM OS EXEMPLARES DE MOEDAS DE R$ 1,00 COM DETALHES EM DUPLICIDADE.">EBOOK</a></button>
-</article>
+        <section id="catalogGrid" class="catalog-grid">
             
-</section>
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">A INFLUÊNCIA ALEMÃ NA FILATELIA BRASILEIRA: UMA ANÁLISE HISTÓRICA ANTES E DEPOIS DA SEGUNDA GUERRA MUNDIAL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/fjey/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Artigo</a>
+            </article>
 
-<br>
-        <center>
-        <a href="catalogodelivros.html"><button>Clique aqui para voltar ao início do catálogo de livros!</button></a>
-        </center>
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">A ORIGEM DA EDUCAÇÃO.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qsbi/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
 
-        <br>
-            <center>
-        <i>
-            <footer>
-            Site desenvolvido por Juliano <img src="https://d1yei2z3i6k35z.cloudfront.net/6946809/65e45ac72773e_zanoni.1.png" alt="Logo de Juliano Zanoni">
-            </footer>
-        </i>
-            </center>
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">A ORIGEM DA TRIBUTAÇÃO PÚBLICA.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/uqyg/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
 
-        </body>
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">A VIOLÊNCIA CONTRA EDUCADORES BRASILEIROS.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/tjka/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">AÇÕES POLICIAIS EM ÁREAS OCUPADAS POR CRIMINOSOS</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/nced/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">ANÁLISE HISTÓRICA E TÉCNICA REFERENTE AO IPTU.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qsmt/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">AS GRANDES FALHAS EM AÇÕES POLICIAS: OS ERROS E OS ACERTOS.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/whjp/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">AS VARIAÇÕES DAS MOEDAS DE COBRE DO BRASIL: COLÔNIA, REINO UNIDO E PERÍODOS IMPERIAIS.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/enbq/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">CATALOGO DAS MOEDAS COMUNS DO PLANO REAL (2024)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/zxjk/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">CATALOGO DAS MOEDAS COMUNS DO PLANO REAL (2025)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2025</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/btwo/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, TRIPLICADOS, QUADRUPLICADOS E CUNHOS DUPLOS (2024)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qtft/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">CATÁLOGO PARA MATRIZES DE CUNHOS DUPLICADOS, TRIPLICADOS, QUADRUPLICADOS E CUNHOS DUPLOS (2025)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2025</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/iezr/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">COMO ADMINISTRAR CONFLITOS EM CENTRAIS DE IPTU.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/leqb/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">COMO AUMENTAR A ARRECADAÇÃO MUNICIPAL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/ifru/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">COMO COLECIONAR FICHAS: UMA ABORDAGEM HISTÓRICA E CONTEMPORÂNEA.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/ylra/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">COMO PLANEJAR E EXECUTAR O TURISMO CULTURAL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qbiw/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">ESCRAVIDÃO AFRICANA NO BRASIL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/deqd/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">ESTUDO NUMISMÁTICO DAS ANOMALIAS ENCONTRADAS NAS MOEDAS CIRCULANTES DO PLANO REAL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/rizy/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">GESTÃO ESCOLAR PARA DIRETORES (RAS) DE ESCOLAS MUNICIPAIS PÚBLICAS.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qcgb/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">INTRODUÇÃO À AGRICULTURA DE PRECISÃO.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/odcz/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">INTRODUÇÃO À UTILIZAÇÃO CORRETA DE EPI.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/drfq/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">MEMÓRIAS PÓSTUMAS DO SR. ANTONIO CELSO ZANONI</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/jbpr/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">NO ANO EM QUE O PLANO REAL COMPLETA 30 ANOS: A MOEDA DE R$ 0,50 ANO 1994</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/gzsv/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Artigo</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">NOÇÕES BÁSICAS DE ADMINISTRAÇÃO DE BIBLIOTECA INFANTIL PÚBLICA.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/blox/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">NOÇÕES BÁSICAS DE MONITORAMENTO DE METAIS PESADOS: O CHUMBO (Pb).</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/jfcy/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">O EMPREGO DA INTERNET COMO FERRAMENTA NO PROCESSO DE ENSINO-APRENDIZAGEM DA DISCIPLINA DE HISTÓRIA.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/lcte/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">O ENSINO RELIGIOSO EM SALAS DE AULA MULTICULTURAIS.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/zyod/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">OS GRANDES FATORES QUE LEVARAM A ALEMANHA A PERDER A SEGUNDA GUERRA MUNDIAL</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/zkgp/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">OS GRANDES PROBLEMAS DA EDUCAÇÃO BRASILEIRA: UMA ANÁLISE CONTEMPORÂNEA</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/tcfk/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">OS POVOS INDÍGENAS DO BRASIL.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/wyzk/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">RECURSOS HUMANOS NO SERVIÇO PÚBLICO MUNICIPAL: RECRUTAMENTO, SELEÇÃO E ADMISSÃO.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/oszx/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">REVOLTAS IMPERIAIS: IMPÉRIO DE D. PEDRO II.</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/evec/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Apostila</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE COBRE DO BRASIL IMPERIAL</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2025</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/ntnd/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,05 COM DETALHES EM DUPLICIDADE</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/ofeq/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,05 COM EXCESSO DE METAL (2024)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/rwwh" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,05 COM EXCESSO DE METAL (2025)</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2025</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/iluf/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,10 DA 1ª FAMÍLIA COM DETALHES EM DUPLICIDADE</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/uhtw/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,10 DA 2ª FAMÍLIA COM DETALHES EM DUPLICIDADE</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/dmqv/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 0,50 COM DETALHES EM DUPLICIDADE</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/qvbl/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+            <article class="book-card">
+                <div>
+                    <h3 class="book-title">VERSÃO ILUSTRADA DA COLEÇÃO NUMISMÁTICA ZANONI - MOEDAS DE R$ 1,00 COM DETALHES EM DUPLICIDADE</h3>
+                    <div class="book-meta">
+                        <p><strong>AUTOR:</strong> JULIANO ZANONI</p>
+                        <p><strong>EDITORA:</strong> PORTAL ZANONI CAPACITAÇÃO HUMANA, CIÊNCIA & TECNOLOGIA</p>
+                        <p><strong>EDIÇÃO:</strong> 1ª</p>
+                        <p><strong>ANO:</strong> 2024</p>
+                    </div>
+                </div>
+                <a href="https://online.fliphtml5.com/lusnq/widy/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Acessar Ebook</a>
+            </article>
+
+        </section>
         
-            
-<script>
-      const form = document.querySelector('form');
-    const resposta = document.querySelector('#resposta');
-    const sections = document.querySelectorAll('section');
-    
-   
-    const uniqueResults = {};
-    
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const query = document.querySelector('#query').value.toLowerCase(); 
-      const paragraphs = document.querySelectorAll('section article');
-    
-      const results = []; 
-    
-      for (const paragraph of paragraphs) {
-        if (paragraph.textContent.toLowerCase().includes(query)) { 
-          
-          if (!uniqueResults[paragraph.outerHTML]) {
-            results.push(paragraph.outerHTML); 
-            uniqueResults[paragraph.outerHTML] = true; 
-          }
-        }
-      }
-    
-      if (results.length > 0) {
-        resposta.innerHTML = results.join(''); 
-      } else {
-        resposta.innerHTML = 'Nenhum resultado encontrado.'; 
-      }
-    
-      
-      for (const section of sections) {
-        if (section !== resposta.parentElement) {
-          section.style.display = 'none';
-        }
-      }
-    });
+        <p id="noResults" class="no-results" style="display: none;">Nenhum resultado encontrado para a sua pesquisa.</p>
+    </main>
 
-</script>
+    <footer>
+        <div class="footer-content">
+            <span>Site desenvolvido por Juliano Zanoni</span>
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/6946809/65e45ac72773e_zanoni.1.png" alt="Logo Juliano Zanoni" class="footer-logo">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('query');
+            const resetBtn = document.getElementById('resetBtn');
+            const bookCards = document.querySelectorAll('.book-card');
+            const noResultsMsg = document.getElementById('noResults');
+
+            function filterBooks() {
+                const query = searchInput.value.toLowerCase().trim();
+                let hasMatch = false;
+
+                bookCards.forEach(card => {
+                    const textContent = card.textContent.toLowerCase();
+                    if (textContent.includes(query)) {
+                        card.style.display = 'flex';
+                        hasMatch = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (hasMatch) {
+                    noResultsMsg.style.display = 'none';
+                } else {
+                    noResultsMsg.style.display = 'block';
+                }
+            }
+
+            // Realiza a filtragem dinamicamente ao digitar
+            searchInput.addEventListener('input', filterBooks);
+
+            // Previne submissão do formulário tradicional e executa a busca
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                filterBooks();
+            });
+
+            // Reseta a pesquisa e mostra todos os cards
+            resetBtn.addEventListener('click', () => {
+                setTimeout(() => {
+                    filterBooks();
+                }, 10);
+            });
+        });
+    </script>
+</body>
 </html>
