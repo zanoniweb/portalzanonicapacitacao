@@ -1,212 +1,611 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo de Cursos</title>
-       <style>
+    <title>Catálogo de Cursos - Portal Zanoni</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --primary-hover: #1565c0;
+            --secondary-color: #d32f2f;
+            --text-color: #212121;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-        color: black;
-        background-color: white;
-        font-family: Geneva;
-        align-items: center;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        ul {
-        display: flex;
-        justify-content: space-between;
-        list-style-type: nome;
-        align-items: center;
-        padding: 25px;
+
+        /* Header & Navegação */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        a {
-        font-family: Geneva;
-        font-size: 25px;
-        color: black;
-        text-decoration: nome;
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
         }
-        a:active { 
-        color: red;
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
+
+        nav a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
         nav a:hover {
-        color: blue;
-        }    
-        header img {
-        width: 300px;
-        height: 200px;
-        align-content: center;
-        }
-        body img.body-image {
-        width: 80px;
-        height: 40px;
-        align-content: center;
-        }
-        button {
-        margin: 5px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: black;
-        color: white;
-        cursor: pointer;
+            color: var(--secondary-color);
         }
 
-        button:hover {
-        background-color: red;
+        .logo-header {
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 15px;
         }
-        .search-box {
-        width: 300px;
-        }
-        .section {
-        color: black;
-        font-family: Geneva;
-        font-size: 30px; 
-        }
-        .center {
-        text-align: center;
-        }
+
         h1 {
-        color: black;
-        font-family: Geneva;
-        text-align: justify;
-        font-size: 45px; 
+            color: var(--text-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
-        p{
-        font-family: Geneva;
-        color: black;
-        text-align: center;
-        font-size: 25px;     
+
+        /* Container Principal */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
         }
-        footer{
-        font-family: Geneva;
-        color: black;
-        text-align: center;
-        font-size: 20px;     
+
+        /* Área de Busca */
+        .search-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
         }
-        </style>
-        </head>
-        <header>   
-            <div class="center">
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .search-form label {
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+        }
+
+        .body-image {
+            position: absolute;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Grade de Cursos */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .course-meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .course-meta p {
+            margin-bottom: 4px;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            padding: 40px;
+            display: none;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            height: 30px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
             <nav>
-        <ul>
-            <a href="index.html">Portal Zanoni Capacitação Humana, Ciência & Tecnologia</a>
-            <a href="areadoaluno.html">Área do Aluno</a>
-            <a href="catalogodelivros.html">Catálogo de Livros</a>
-        </ul>
-        </nav>  
-        <img src="./img/logo.3.jpg"></img>
-        <h1>Catálogo de Cursos</h1>
+                <ul>
+                    <li><a href="index.html">Portal Zanoni Capacitação Humana, Ciência & Tecnologia</a></li>
+                    <li><a href="areadoaluno.html">Área do Aluno</a></li>
+                    <li><a href="catalogodecursos.html">Catálogo de Cursos</a></li>
+                </ul>
+            </nav>
+            <img src="./img/logo.3.jpg" alt="Logo Portal Zanoni" class="logo-header">
+            <h1>Catálogo de Cursos</h1>
         </div>
-        </header>
-        <body>
+    </header>
 
-            <form method="POST">
+    <main>
+        <section class="search-section">
+            <form id="searchForm" class="search-form">
+                <label for="query">Digite sua consulta de pesquisa:</label>
+                <div class="input-group">
+                    <input type="text" id="query" class="search-box" placeholder="Digite o título ou assunto do curso..." name="query">
+                    <img class="body-image" src="./img/pesquisa.png" alt="Ícone de pesquisa">
+                </div>
+                <div class="btn-group">
+                    <button type="reset" id="resetBtn" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </form>
+        </section>
 
-                <label for="query">Digite sua consulta de pesquisa:</label><br>
-                <input type="text" id="query" name="query"><br>
-                <input type="reset" value="Limpar">
-                <input type="submit" value="Pesquisar">
-                
-                <img class="body-image" src="./img/pesquisa.png " alt="Logo do campo pesquisa.">
-
-              </form>
-              <br>
-
-            <a href="catalogodecursos.html"><button>Carregar Para Nova Pesquisa</button></a>
-<div id="resposta">
+        <section id="catalogGrid" class="catalog-grid">
             
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">A ESCRAVIDÃO AFRICANA NO BRASIL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 30 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoescravidao.html" class="btn btn-primary">Inscrição</a>
+            </article>
 
-<section>    
-<p>A ESCRAVIDÃO AFRICANA NO BRASIL: 30 HORAS
-<a href="cursoescravidao.html"><button>Inscrição</button></a></p><br>
-<p>A ORIGEM DA EDUCAÇÃO: 20 HORAS
-<a href="cursoorigemeducacao.html"><button>Inscrição</button></a></p><br>
-<p>A ORIGEM DA TRIBUTAÇÃO PÚBLICA: 20 HORAS
-<a href="cursoorigemtributacaopublica.html"><button>Inscrição</button></a></p><br>
-<p>A VIOLÊNCIA CONTRA EDUCADORES BRASILEIROS: 20 HORAS
-<a href="cursoviolenciaeducadores.html"><button>Inscrição</button></a></p><br>
-<p>AÇÕES POCILIAIS EM COMUNIDADES OCUPADAS POR CRIMINOSOS NO BRASIL: 20 HORAS
-<a href="cursoacaopolicialcomunidades.html"><button>Inscrição</button></a></p><br>
-<p>ANÁLISE HISTÓRICA E TÉCNICA REFERENTE AO IPTU: 20 HORAS
-<a href="cursoiptu.html"><button>Inscrição</button></a></p><br>
-<p>AS GRANDES FALHAS EM AÇÕES POLICIAIS: OS ERROS E OS ACERTOS: 30 HORAS
-<a href="cursofalhaspoliciais.html"><button>Inscrição</button></a></p><br>
-<p>AS VARIAÇÕES DAS MOEDAS DE COBRE DO BRASIL: COLÔNIA, REINO UNIDO E PERÍODOS IMPERIAIS.: 30 HORAS
-<a href="cursomoedascobrebrasil.html"><button>Inscrição</button></a></p><br>
-<p>AS PRINCIPAIS REVOLTAS DO PERÍODO IMPERIAL BRASILERIO: UMA ANÁLISE HISTÓRICA.: 20 HORAS
-<a href="cursorevoltasimperiais.html"><button>Inscrição</button></a></p><br>
-<p>COMO ADMINISTRAR CONFLITOS EM CENTRAIS DE IPTU: 20 HORAS
-<a href="cursocentraisiptu.html"><button>Inscrição</button></a></p><br>
-<p>COMO AUMENTAR A ARRECADAÇÃO MUNICIPAL: 20 HORAS
-<a href="cursoarrecadacaomunicipal.html"><button>Inscrição</button></a></p><br>
-<p>COMO COLECIONAR FICHAS: UMA ABORDAGEM HISTÓRICA E CONTEPORÂNEA.: 30 HORAS
-<a href="cursocolecionarfichas.html"><button>Inscrição</button></a></p><br>
-<p>COMO PLANEJAR E EXECUTAR O TURISMO CULTURAL: 30 HORAS
-<a href="cursoturismocultural.html"><button>Inscrição</button></a></p><br>
-<p>GESTÃO ESCOLAR PARA DIRETORES (RAS) DE ESCOLAS MUNICIPAIS PÚBLICAS: 20 HORAS
-<a href="cursogestaodiretores.html"><button>Inscrição</button></a></p><br>
-<p>INTRODUÇÃO À AGRICULTURA DE PRECISÃO: 20 HORAS
-<a href="cursoagriculturaprecisao.html"><button>Inscrição</button></a></p><br>
-<p>INTRODUÇÃO A UTILIZAÇÃO CORRETA DE EPI: 20 HORAS
-<a href="cursoutilizacaoepi.html"><button>Inscrição</button></a></p><br>
-<p>NOÇÕES BÁSCIAS DE ADMINISTRAÇÃO DE BIBLIOTECA PÚBLICA INFANTIL: 20 HORAS
-<a href="cursobibliotecainfantil.html"><button>Inscrição</button></a></p><br>
-<p>NOÇÕES BÁSICAS DE MONITORAMENTO DE METAIS PESADOS: O CHUMBO (Pb): 60 HORAS 
-<a href="cursomonitoramentochumbo.html"><button>Inscrição</button></a></p><br>
-<p>O EMPREGO DA INTERNET COMO FERRAMENTA NO PROCESSO DE ENSINO-APRENDIZAGEM DA DISCIPLINA DE HISTÓRIA.: 20 HORAS
-<a href="cursointernethistoira.html"><button>Inscrição</button></a></p><br>
-<p>O ENSINO RELIGIOSO EM SALAS DE AULA MULTICULTURAIS.: 20 HORAS
-<a href="cursoensinoreligioso.html"><button>Inscrição</button></a></p><br>
-<p>OS GRANDES FATORES QUE LEVARAM A ALEMANHA A PERDER A SEGUNDA GUERRA MUNDIAL: 20 HORAS
-<a href="cursoalemanhasegundaguerra.html"><button>Inscrição</button></a></p><br>
-<p>OS GRANDES PROBLEMAS DA EDUCAÇÃO BRASILEIRA: 20 HORAS
-<a href="cursoproblemaseducacaobrasileira.html"><button>Incrição</button></a></p><br>
-<p>OS POVOS INDIGENAS DO BRASIL: 20 HORAS
-<a href="cursopovosindigenas.html"><button>Inscrição</button></a></p><br>
-<p>RECURSOS HUMANOS NO SERVIÇO PÚBLICO MUNICIPAL: RECRUTAMENTO, SELEÇÃO E ADMINISTRAÇÃO: 20 HORAS
-<a href="cursorecursoshumanospublico.html"><button>Inscrição</button></a></p><br>
-</section>
-</div>
-<br>
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">A ORIGEM DA EDUCAÇÃO</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoorigemeducacao.html" class="btn btn-primary">Inscrição</a>
+            </article>
 
-<center>
-<a href="catalogodecursos.html"><button>Clique aqui para voltar ao início do catálogo de cursos!</button></a>
-</center>
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">A ORIGEM DA TRIBUTAÇÃO PÚBLICA</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoorigemtributacaopublica.html" class="btn btn-primary">Inscrição</a>
+            </article>
 
-<br>
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">A VIOLÊNCIA CONTRA EDUCADORES BRASILEIROS</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoviolenciaeducadores.html" class="btn btn-primary">Inscrição</a>
+            </article>
 
-<center>
-  <i>
-  <footer>
-  <p>Site desenvolvido por Juliano <img src="https://d1yei2z3i6k35z.cloudfront.net/6946809/65e45ac72773e_zanoni.1.png" alt="Logo de Juliano Zanoni"></p>
-  </footer>
-  </i>
-</center>
- 
-        </body>
-<script>
-  const form = document.querySelector('form');
-  form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const query = document.querySelector('#query').value;
-  const resposta = document.querySelector('#resposta');
-  const paragraphs = document.querySelectorAll('section p');
-  const results = []; // Cria uma lista vazia para armazenar os resultados
-  for (const paragraph of paragraphs) {
-    if (paragraph.textContent.toLowerCase().includes(query.toLowerCase())) {
-      results.push(paragraph.outerHTML); // Adiciona o resultado à lista
-    }
-  }
-  if (results.length > 0) { // Verifica se há resultados
-    resposta.innerHTML = results.join(''); // Exibe todos os resultados
-  } else {
-    resposta.innerHTML = 'Nenhum resultado encontrado.'; // Exibe uma mensagem de erro se não houver resultados
-  }
-  const sections = document.querySelectorAll('section');
-  for (const section of sections) {
-    if (section !== resposta.parentElement) {
-      section.style.display = 'none';
-    }
-  }
-});
-</script>
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">AÇÕES POLICIAIS EM COMUNIDADES OCUPADAS POR CRIMINOSOS NO BRASIL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoacaopolicialcomunidades.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">ANÁLISE HISTÓRICA E TÉCNICA REFERENTE AO IPTU</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoiptu.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">AS GRANDES FALHAS EM AÇÕES POLICIAIS: OS ERROS E OS ACERTOS</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 30 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursofalhaspoliciais.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">AS VARIAÇÕES DAS MOEDAS DE COBRE DO BRASIL: COLÔNIA, REINO UNIDO E PERÍODOS IMPERIAIS</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 30 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursomoedascobrebrasil.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">AS PRINCIPAIS REVOLTAS DO PERÍODO IMPERIAL BRASILEIRO: UMA ANÁLISE HISTÓRICA</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursorevoltasimperiais.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">COMO ADMINISTRAR CONFLITOS EM CENTRAIS DE IPTU</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursocentraisiptu.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">COMO AUMENTAR A ARRECADAÇÃO MUNICIPAL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoarrecadacaomunicipal.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">COMO COLECIONAR FICHAS: UMA ABORDAGEM HISTÓRICA E CONTEMPORÂNEA</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 30 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursocolecionarfichas.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">COMO PLANEJAR E EXECUTAR O TURISMO CULTURAL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 30 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoturismocultural.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">GESTÃO ESCOLAR PARA DIRETORES(AS) DE ESCOLAS MUNICIPAIS PÚBLICAS</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursogestaodiretores.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">INTRODUÇÃO À AGRICULTURA DE PRECISÃO</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoagriculturaprecisao.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">INTRODUÇÃO À UTILIZAÇÃO CORRETA DE EPI</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoutilizacaoepi.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">NOÇÕES BÁSICAS DE ADMINISTRAÇÃO DE BIBLIOTECA PÚBLICA INFANTIL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursobibliotecainfantil.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">NOÇÕES BÁSICAS DE MONITORAMENTO DE METAIS PESADOS: O CHUMBO (Pb)</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 60 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursomonitoramentochumbo.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">O EMPREGO DA INTERNET COMO FERRAMENTA NO PROCESSO DE ENSINO-APRENDIZAGEM DA HISTÓRIA</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursointernethistoira.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">O ENSINO RELIGIOSO EM SALAS DE AULA MULTICULTURAIS</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoensinoreligioso.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">OS GRANDES FATORES QUE LEVARAM A ALEMANHA A PERDER A SEGUNDA GUERRA MUNDIAL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoalemanhasegundaguerra.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">OS GRANDES PROBLEMAS DA EDUCAÇÃO BRASILEIRA</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursoproblemaseducacaobrasileira.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">OS POVOS INDÍGENAS DO BRASIL</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursopovosindigenas.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <article class="course-card">
+                <div>
+                    <h3 class="course-title">RECURSOS HUMANOS NO SERVIÇO PÚBLICO MUNICIPAL: RECRUTAMENTO, SELEÇÃO E ADMINISTRAÇÃO</h3>
+                    <div class="course-meta">
+                        <p><strong>CARGA HORÁRIA:</strong> 20 HORAS</p>
+                        <p><strong>INSTITUIÇÃO:</strong> PORTAL ZANONI</p>
+                    </div>
+                </div>
+                <a href="cursorecursoshumanospublico.html" class="btn btn-primary">Inscrição</a>
+            </article>
+
+            <div id="noResults" class="no-results">Nenhum curso encontrado.</div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="./img/logo.3.jpg" alt="Logo Portal Zanoni" class="footer-logo">
+            <p>&copy; 2026 Portal Zanoni Capacitação Humana, Ciência & Tecnologia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade de Filtro/Busca Simples no Catálogo de Cursos
+        const searchForm = document.getElementById('searchForm');
+        const queryInput = document.getElementById('query');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const courseCards = catalogGrid.querySelectorAll('.course-card');
+        const noResults = document.getElementById('noResults');
+        const resetBtn = document.getElementById('resetBtn');
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            filterCourses(queryInput.value);
+        });
+
+        queryInput.addEventListener('input', function() {
+            filterCourses(queryInput.value);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            courseCards.forEach(card => card.style.display = 'flex');
+            noResults.style.display = 'none';
+        });
+
+        function filterCourses(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            let visibleCount = 0;
+
+            courseCards.forEach(card => {
+                const title = card.querySelector('.course-title').textContent.toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+    </script>
+</body>
 </html>
